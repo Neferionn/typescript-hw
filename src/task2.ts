@@ -17,8 +17,7 @@ interface Name {
   name: string;
 }
 
-// type IdOrName<T extends Id | Name | any> = T extends Id
-type IdOrName<T extends Id | Name> = T extends Id
+type IdOrName<T extends Id | Name | any> = T extends Id
   ? number
   : T extends Name
   ? string
