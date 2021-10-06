@@ -8,3 +8,18 @@
 * Else If passed in type extends Name, IdOrName - will be of type string
 * Else passed in type extends Anything Else, IdOrName - will be of type {age: boolean}
  */
+
+interface Id {
+  id: number;
+}
+
+interface Name {
+  name: string;
+}
+
+// type IdOrName<T extends Id | Name | any> = T extends Id
+type IdOrName<T extends Id | Name> = T extends Id
+  ? number
+  : T extends Name
+  ? string
+  : { age: boolean };

@@ -1,11 +1,11 @@
 // EX 1 -----------------------------------
 
-// interface Entity {
-//   readonly id?: string;
-//   readonly name?: string;
-//   readonly age?: number;
-//   readonly ethnicity?: string;
-// }
+interface Entity {
+  readonly id?: string;
+  readonly name?: string;
+  readonly age?: number;
+  readonly ethnicity?: string;
+}
 
 // Given following interface do the following operations:
 // Remove - 1. readonly, 2. optional type and 3. id property & ethnicity property
@@ -20,3 +20,24 @@
       age: boolean;
     }
    */
+
+type RemoveReadOnly<Type> = {
+  -readonly [Property in keyof Type]: Type[Property];
+};
+
+type RemoveOptionals<Type> = {
+  [Property in keyof Type]-?: Type[Property];
+};
+
+type RemoveProps<Type> = {
+  [Property in keyof Type as Exclude<
+    Property,
+    "id" | "ethnicity"
+  >]: Type[Property];
+};
+
+type ToBoolean<Type> = {
+  [Property in keyof Type]: boolean;
+};
+
+type newType = ToBoolean<RemoveProps<RemoveOptionals<RemoveReadOnly<Entity>>>>;
